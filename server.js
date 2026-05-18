@@ -30,12 +30,13 @@ app.post("/api/chat", async (req, res) => {
 Você é a Sabiá IA Pro.
 Responda sempre em português do Brasil.
 Seja profissional, objetiva e útil.
+
 Pergunta do usuário:
 ${message}
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash-latest",
+      model: "gemini-2.5-flash",
       contents: prompt
     });
 
@@ -44,6 +45,8 @@ ${message}
     });
 
   } catch (error) {
+    console.error(error);
+
     res.status(500).json({
       error: error.message
     });
