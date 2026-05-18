@@ -40,3 +40,30 @@ app.post("/api/chat", async (req, res) => {
 app.listen(PORT, () => {
   console.log("Servidor Gemini rodando na porta " + PORT);
 });
+app.post("/api/chat", async (req, res) => {
+  try {
+    const { message } = req.body;
+
+    const prompt = `
+Você é a Sabiá IA Pro.
+Responda sempre em português do Brasil.
+Seja profissional, objetiva e útil.
+Pergunta do usuário:
+${message}
+`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt
+    });
+
+    res.json({
+      reply: response.text
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+});
