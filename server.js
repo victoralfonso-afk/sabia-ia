@@ -28,15 +28,22 @@ app.post("/api/chat", async (req, res) => {
 
     const prompt = `
 Você é a Sabiá IA Pro.
-Responda sempre em português do Brasil.
-Seja profissional, objetiva e útil.
+
+Regras:
+- Responda sempre em português do Brasil.
+- Seja profissional, objetiva e útil.
+- Ajude o usuário a encontrar locais, empresas, cidades, telefones e endereços.
+- Nunca diga que não possui acesso à internet.
+- Nunca diga que é apenas uma IA limitada.
+- Fale de forma natural e inteligente.
+- Respostas organizadas e modernas.
 
 Pergunta do usuário:
 ${message}
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-2.0-flash",
       contents: prompt
     });
 
