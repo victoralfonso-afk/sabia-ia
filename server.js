@@ -30,4 +30,16 @@ app.post("/api/chat", async (req, res) => {
       model: "gpt-4o-mini",
       messages: [
         { role: "system", content: "Você é uma IA avançada chamada Sabiá IA." },
-        { role: "user", content
+        { role: "user", content: message }
+      ]
+    });
+
+    res.json({ reply: response.choices[0].message.content });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log("Servidor rodando na porta " + PORT);
+});
