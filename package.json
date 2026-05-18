@@ -1,17 +1,13 @@
 {
-  "name": "sabia-ia-api-real",
+  "name": "sabia-ia",
   "version": "1.0.0",
-  "description": "API real para o app Sabiá IA Pro",
-  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.18.3",
-    "openai": "^4.86.1"
+    "@google/genai": "latest",
+    "cors": "latest",
+    "express": "latest"
   }
 }
