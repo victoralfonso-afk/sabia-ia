@@ -26,24 +26,6 @@ app.post("/api/chat", async (req, res) => {
   try {
     const { message } = req.body;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash-latest",
-      contents: message
-    });
-
-    res.json({ reply: response.text });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.listen(PORT, () => {
-  console.log("Servidor Gemini rodando na porta " + PORT);
-});
-app.post("/api/chat", async (req, res) => {
-  try {
-    const { message } = req.body;
-
     const prompt = `
 Você é a Sabiá IA Pro.
 Responda sempre em português do Brasil.
@@ -53,7 +35,7 @@ ${message}
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash-latest",
       contents: prompt
     });
 
@@ -66,4 +48,8 @@ ${message}
       error: error.message
     });
   }
+});
+
+app.listen(PORT, () => {
+  console.log("Servidor Gemini rodando na porta " + PORT);
 });
