@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,8 +10,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY
 });
 
 app.use(cors());
@@ -26,20 +26,17 @@ app.post("/api/chat", async (req, res) => {
   try {
     const { message } = req.body;
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: "Você é uma IA avançada chamada Sabiá IA." },
-        { role: "user", content: message }
-      ]
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: message
     });
 
-    res.json({ reply: response.choices[0].message.content });
+    res.json({ reply: response.text });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
 app.listen(PORT, () => {
-  console.log("Servidor rodando na porta " + PORT);
+  console.log("Servidor Gemini rodando na porta " + PORT);
 });
